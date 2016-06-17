@@ -1,8 +1,11 @@
 <div class="container">
-    <ul class="nav nav-pills nav-justified">
-        <li ng-class="{'active': eventStatus.status === 'ordering', 'disabled': !eventStatus.isOwner}" ng-click="eventStatus.setStatus('ordering')"><a href="#">Ordering</a></li>
-        <li ng-class="{'active': eventStatus.status === 'ordered', 'disabled': !eventStatus.isOwner}" ng-click="eventStatus.setStatus('ordered')"><a href="#">Ordered</a></li>
-        <li ng-class="{'active': eventStatus.status === 'delivering', 'disabled': !eventStatus.isOwner}" ng-click="eventStatus.setStatus('delivering')"><a href="#">Delivering</a></li>
-        <li ng-class="{'active': eventStatus.status === 'delivered', 'disabled': !eventStatus.isOwner}" ng-click="eventStatus.setStatus('delivered')"><a href="#">Delivered</a></li>
-    </ul>
+    <h3><span class="label label-default">Event status</span></h3>
+    <div class="panel panel-default">
+        <ul class="nav nav-pills nav-justified">
+            <li ng-class="{'active': eventStatus.status === 'ordering', 'disabled': !eventStatus.isOwner}" ng-click="eventStatus.setStatus('ordering')"><a href="#">Ordering</a></li>
+            <li ng-class="{'active': eventStatus.status === 'ordered', 'disabled': !eventStatus.isOwner}" ng-click="eventStatus.setStatus('ordered')"><a href="#">Ordered</a></li>
+            <li ng-class="{'active': eventStatus.status === 'delivering', 'disabled': !eventStatus.isOwner}" ng-click="eventStatus.setStatus('delivering')"><a href="#">Delivering</a></li>
+            <li ng-class="{'active': eventStatus.status === 'delivered', 'disabled': !eventStatus.isOwner}" ng-click="eventStatus.setStatus('delivered')"><a href="#">Delivered</a></li>
+        </ul>
+    </div>
 </div>

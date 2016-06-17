@@ -1,60 +1,117 @@
-<div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" id="menuItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Menu
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="menuItem">
-        <li ng-repeat="item in eventMenu.menu" ng-click="eventMenu.selectMenu(item.id)">
-            <a href="#">{{item.name}}</a>
-        </li>
-    </ul>
-</div>
-<ul>
-    Selected menu:
-    <li ng-repeat="item in eventMenu.selectedMenu">
-        <span>{{'item name: ' + eventMenu.getItem(item.itemId).name + ', price: ' + eventMenu.getItem(item.itemId).price}}</span>
-        <input type="text" ng-model="eventMenu.pr[item.itemId].quantity" ng-init="eventMenu.pr[item.itemId].quantity='1'">
-        <span>{{eventMenu.getItem(item.itemId).price*eventMenu.pr[item.itemId].quantity}}</span>
-        <button class="btn" ng-click="eventMenu.addToPreorder(item.itemId)">Add to preorder</button>
-    </li>
-</ul>
-<ul>
-    preorder menu:
-    <li ng-repeat="item in eventMenu.preorderList">
-        <span>{{'item name: ' + eventMenu.getItem(item.itemId).name + ', price: ' + eventMenu.getItem(item.itemId).price  + ', quantity: ' + item.quantity  + ', sum: ' + eventMenu.getItem(item.itemId).price*item.quantity}}</span>
-    </li>
-    <button class="btn" ng-click="eventMenu.order()">Order</button>
-</ul>
 <div class="container">
-    <h2>Order List</h2>
-    <p>The .table-bordered class adds borders to a table:</p>
-    <table class="table table-bordered table-condensed">
-        <tbody ng-repeat="order in eventMenu.orderList">
-            <tr>
-                <td class="info" colspan=5><strong>Participant:</strong> {{ eventMenu.getUser(order.userId) | displayNameFilter }}</td>
-            </tr>
-            <tr>
-                <th>Menu item</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Coupon</th>
-                <th>Sum</th>
-            </tr>
-            <tr ng-repeat="item in order.items">
-                <td>{{eventMenu.getItem(item.itemId).name}}</td>
-                <td>{{eventMenu.getItem(item.itemId).price|currency}}</td>
-                <td>{{item.quantity}}</td>
-                <td>{{eventMenu.getItem(item.itemId).coupon ? '20% off' : '-'}}</td>
-                <td>{{item.quantity*eventMenu.getItem(item.itemId).price*(eventMenu.getItem(item.itemId).coupon ? 0.8 : 1)|currency}}</td>
-            </tr>
-            <tr>
-                <td colspan=4></td>
-                <td class="warning"><strong>Total:</strong> {{order.totalSum|currency}}</td>
-            </tr>
-            <tr class="danger" ng-show='{{$last}}'>
-                <td colspan=4></td>
-                <td><strong>Total by all users:</strong> {{eventMenu.getTotalByUsers(eventMenu.orderList)|currency}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h3><span class="label label-default">Event menu</span></h3>
+    <div class="panel panel-default">
+        <ul>
+            <br/>
+            <div class="dropdown">
+                <button class="btn btn-info dropdown-toggle" type="button" id="menuItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Select menu items
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="menuItem">
+                    <li ng-repeat="item in eventMenu.menu" ng-click="eventMenu.selectMenu(item.id)">
+                        <a href="#">{{item.name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <br/>
+            <table class="table table-bordered table-condensed">
+                <tbody>
+                    <tr>
+                        <th colspan=6 class="success" style="text-align: center">Selected menu</th>
+                    </tr>
+                    <tr>
+                        <th>Menu item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Coupon</th>
+                        <th>Sum</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr ng-repeat="item in eventMenu.selectedMenu">
+                        <td>{{eventMenu.getItem(item.itemId).name}}</td>
+                        <td>{{eventMenu.getItem(item.itemId).price|currency}}</td>
+                        <td>
+                            <input type="text" ng-model="eventMenu.pr[item.itemId].quantity" ng-init="eventMenu.pr[item.itemId].quantity='1'">
+                        </td>
+                        <td>{{eventMenu.getItem(item.itemId).coupon ? '20% off' : '-'}}</td>
+                        <td>{{eventMenu.getItem(item.itemId).price*eventMenu.pr[item.itemId].quantity*(eventMenu.getItem(item.itemId).coupon ? 0.8 : 1)|currency}}</td>
+                        <td>
+                            <button class="btn" ng-click="eventMenu.addToPreorder(item.itemId)">Add to preorder</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Selected menu:           
+
+            <li ng-repeat="item in eventMenu.selectedMenu">
+                <span>{{'item name: ' + eventMenu.getItem(item.itemId).name + ', price: ' + eventMenu.getItem(item.itemId).price}}</span>
+                <input type="text" ng-model="eventMenu.pr[item.itemId].quantity" ng-init="eventMenu.pr[item.itemId].quantity='1'">
+                <span>{{eventMenu.getItem(item.itemId).price*eventMenu.pr[item.itemId].quantity}}</span>
+                <button class="btn" ng-click="eventMenu.addToPreorder(item.itemId)">Add to preorder</button>
+            </li> -->
+        </ul>
+        <ul>
+            <table class="table table-bordered table-condensed">
+                <tbody>
+                    <tr>
+                        <th colspan=5 class="danger" style="text-align: center">Preorder menu</th>
+                    </tr>
+                    <tr>
+                        <th>Menu item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Coupon</th>
+                        <th>Sum</th>
+                    </tr>
+                    <tr ng-repeat="item in eventMenu.preorderList">
+                        <td>{{eventMenu.getItem(item.itemId).name}}</td>
+                        <td>{{eventMenu.getItem(item.itemId).price|currency}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{eventMenu.getItem(item.itemId).coupon ? '20% off' : '-'}}</td>
+                        <td>{{eventMenu.getItem(item.itemId).price*item.quantity*(eventMenu.getItem(item.itemId).coupon ? 0.8 : 1)|currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <li ng-repeat="item in eventMenu.preorderList">
+                <span>{{'item name: ' + eventMenu.getItem(item.itemId).name + ', price: ' + eventMenu.getItem(item.itemId).price  + ', quantity: ' + item.quantity  + ', sum: ' + eventMenu.getItem(item.itemId).price*item.quantity}}</span>
+            </li> -->
+            <button class="btn btn-success" ng-click="eventMenu.order()">Add selected menu items to order</button>
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <h3><span class="label label-default">Order list</span></h3>
+    <div class="panel panel-default">
+        <h4 style="text-align: center">List shows orders by all participants</h4>
+        <table class="table table-bordered table-condensed">
+            <tbody ng-repeat="order in eventMenu.orderList">
+                <tr>
+                    <td class="info" colspan=5><strong>Participant:</strong> {{ eventMenu.getUser(order.userId) | displayNameFilter }}</td>
+                </tr>
+                <tr>
+                    <th>Menu item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Coupon</th>
+                    <th>Sum</th>
+                </tr>
+                <tr ng-repeat="item in order.items">
+                    <td>{{eventMenu.getItem(item.itemId).name}}</td>
+                    <td>{{eventMenu.getItem(item.itemId).price|currency}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{eventMenu.getItem(item.itemId).coupon ? '20% off' : '-'}}</td>
+                    <td>{{item.quantity*eventMenu.getItem(item.itemId).price*(eventMenu.getItem(item.itemId).coupon ? 0.8 : 1)|currency}}</td>
+                </tr>
+                <tr>
+                    <td colspan=4></td>
+                    <td class="warning"><strong>Total:</strong> {{order.totalSum|currency}}</td>
+                </tr>
+                <tr class="danger" ng-show='{{$last}}'>
+                    <td colspan=4></td>
+                    <td><strong>Total by all users:</strong> {{eventMenu.getTotalByUsers(eventMenu.orderList)|currency}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
