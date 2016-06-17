@@ -24,7 +24,11 @@ export function addToPreorder(eventId, userId, itemId, quantity) {
 
     const group = Groups.findOne(event.groupId);
 
-    if (this.userId !== userId && group.owner !== this.userId && !_.contains(group.invited.map(user => user.id), this.userId)) {
+    if (this.userId !== userId) {
+        throw new Meteor.Error(404, 'No permissions!');
+    }
+
+    if (group.owner !== this.userId && event.owner !== this.userId && !_.contains(group.invited.map(user => user.id), this.userId)) {
         throw new Meteor.Error(404, 'No permissions!');
     }
 
