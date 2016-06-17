@@ -43,8 +43,11 @@ function run($rootScope, $state) {
 
     $rootScope.$on('$stateChangeError',
         (event, toState, toParams, fromState, fromParams, error) => {
-            if (error === 'AUTH_REQUIRED') {
+            if (error === 'AUTH_REQUIRED_EVENTS') {
                 $state.go('events');
+            }
+            if (error === 'AUTH_REQUIRED_GROUPS') {
+                $state.go('groups');
             }
         }
     );

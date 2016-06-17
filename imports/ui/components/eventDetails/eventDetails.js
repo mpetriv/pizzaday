@@ -54,7 +54,7 @@ function config($stateProvider) {
         resolve: {
             currentUser($q) {
                 if (Meteor.userId() === null) {
-                    return $q.reject('AUTH_REQUIRED');
+                    return $q.reject('AUTH_REQUIRED_EVENTS');
                 } else {
                     return $q.resolve();
                 }
