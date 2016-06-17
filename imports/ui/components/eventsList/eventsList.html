@@ -1,0 +1,57 @@
+<div class="container">
+    <event-add></event-add>
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Trigger the modal with a button -->
+            <button ng-show="eventsList.isLoggedIn" type="button" class="btn btn-success btn-block btn-lg" id="myBtn">New PIZZADAY</button>
+            <div class="alert alert-warning" role="alert" ng-hide="eventsList.isLoggedIn">
+                <strong>Warning!</strong> Log in to create a group!
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2 style="text-align: right">EVENTS</h2>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <ul style="list-style-type: none">
+                <li ng-repeat="event in eventsList.events">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <h3>
+                          <a ui-sref="eventDetails({ eventId: event._id })" style="text-decoration: none !important">PizzaDay {{event.date}}</a>
+                        </h3>
+                                </div>
+                                <div class="col-md-1">
+                                    <event-remove event="event" ng-show="eventsList.isOwner(event)"></event-remove>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>
+                                        <span class="label label-default">Group name:</span> <strong> {{eventsList.getGroupName(event.groupId)}}</strong>
+                                    </p>
+                                </div>
+                                <div class="col-md-12">
+                                    <p class="event-description">
+                                        <span class="label label-default">Event status:</span> <strong> {{event.status}}</strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer panel-info">
+                            <event-creator event="event"></event-creator>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>

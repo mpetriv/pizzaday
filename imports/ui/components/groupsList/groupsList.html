@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <button ng-show="groupsList.isLoggedIn" type="button" ng-click="collapseGlyphicon=!collapseGlyphicon" class="btn btn-info btn-block btn-lg" data-toggle="collapse" data-target="#demo">ADD NEW GROUP <span ng-model="collapseGlyphicon" ng-class="{'glyphicon-plus': !collapseGlyphicon, 'glyphicon-minus': collapseGlyphicon}" class="glyphicon"></span></button>
+            <div class="alert alert-warning" role="alert" ng-hide="groupsList.isLoggedIn">
+                <strong>Warning!</strong> Log in to create a group!
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <group-add ng-show="groupsList.isLoggedIn"></group-add>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 list-caption">
+            <h2>LIST OF GROUPS</h2>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <ul class="groups">
+                <li ng-repeat="group in groupsList.groups">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <h3 class="group-name">
+                          <a ui-sref="groupDetails({ groupId: group._id })">{{group.name || group._id}}</a>
+                        </h3>
+                                </div>
+                                <div class="col-md-1">
+                                    <group-remove group="group" ng-show="groupsList.isOwner(group)"></group-remove>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <p class="group-description">
+                                        {{group.desc || "default description"}}
+                                    </p>
+                                </div>
+                                <div class="col-md-5">
+                                    <group-image images="group.images"></group-image>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer panel-info">
+                            <group-creator group="group"></group-creator>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>

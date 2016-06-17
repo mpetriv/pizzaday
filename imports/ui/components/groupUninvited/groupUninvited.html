@@ -1,0 +1,14 @@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Users to invite</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in groupUninvited.users | uninvitedFilter:groupUninvited.group">
+            <td>{{ user | displayNameFilter }}
+                <button type="button" class="btn btn-xs btn-info btn-info" ng-click="groupUninvited.invite(user)">Invite</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

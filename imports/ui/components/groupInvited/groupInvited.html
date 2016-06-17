@@ -1,0 +1,14 @@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Invited users</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in groupInvited.users | invitedFilter:groupInvited.group">
+            <td>{{ user | displayNameFilter }}
+                <button type="button" class="btn btn-xs btn-info btn-danger" ng-click="groupInvited.remove(user)">Remove</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,116 @@
+<div class="panel panel-default collapse" id="demo">
+    <div class="panel-body">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4><span class="badge">1</span> Enter name and description of group</h4></div>
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="group_name">Name:</label>
+                        <input type="text" class="form-control" ng-model="groupAdd.group.name" id="group_name" placeholder="Enter group name">
+                    </div>
+                    <div class="form-group">
+                        <label for="group_desc">A few words about group:</label>
+                        <input type="text" class="form-control" ng-model="groupAdd.group.desc" id="group_desc" placeholder="Enter group description">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4><span class="badge">2</span> Add menu items that will belong to group</h4></div>
+            <div class="panel-body">
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <label for="menu_item">Menu item:</label>
+                        <input type="text" class="form-control" ng-model="groupAdd.menuItemName" id="menu_item" placeholder="Enter menu item">
+                    </div>
+                    <div class="form-group">
+                        <label for="item_price">Price:</label>
+                        <input type="number" class="form-control" ng-model="groupAdd.menuItemPrice" id="item_price" placeholder="Enter item's price">
+                    </div>
+                    <button ng-click="groupAdd.addMenuItem()" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add menu item</button>
+                </form>
+                <br/>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Menu item</th>
+                                    <th>Price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in groupAdd.menuItems">
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.price }}</td>
+                                    <td>
+                                        <button ng-click="groupAdd.removeMenuItem(item)" type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4><span class="badge">3</span> Invite users to group</h4></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Users to invite</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="user in groupAdd.usersToInvite">
+                                    <td>{{ user | displayNameFilter }}
+                                        <button type="button" class="btn btn-xs btn-info btn-info" ng-click="groupAdd.invite(user)">Invite</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Invited users</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="user in groupAdd.invited">
+                                    <td>{{ user | displayNameFilter }}
+                                        <button type="button" class="btn btn-xs btn-info btn-danger" ng-click="groupAdd.remove(user)">Remove</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4><span class="badge">4</span> Add image</h4></div>
+            <div class="panel-body">
+                <group-upload files="groupAdd.group.images"></group-upload>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" ng-click="groupAdd.submit()" class="btn btn-primary btn-lg btn-block">ADD GROUP</button>
+            </div>
+        </div>
+    </div>
+</div>

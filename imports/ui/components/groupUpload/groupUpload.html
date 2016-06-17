@@ -1,0 +1,28 @@
+<div>
+    <div ngf-drop ngf-select ngf-change="groupUpload.addImages($files)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="false" ngf-accept="'image/*'" ngf-drop-available="true" ng-hide="groupUpload.cropImgSrc">
+        <div>Click here to select image</div>
+        <div>
+            <strong>OR</strong>
+        </div>
+        <div>You can also drop image to here</div>
+    </div>
+    <div ng-show="groupUpload.cropImgSrc" class="ng-crop">
+        <div>
+            <h3>Edit &amp; crop</h3>
+            <button class="btn btn-success btn-sm" ng-click="groupUpload.save()">
+                Save Image
+            </button>
+            <button class="btn btn-warning btn-sm" ng-click="groupUpload.reset()">
+                Cancel
+            </button>
+        </div>
+        <div class="ng-crop-container">
+            <img-crop image="groupUpload.cropImgSrc" result-image="groupUpload.myCroppedImage" area-type="square"></img-crop>
+        </div>
+    </div>
+    <div class="images-container-title">
+        <div class="group-image-container" ng-class="{'main-image': $index === 0}" ng-repeat="thumb in groupUpload.thumbs">
+            <img ng-src="{{ thumb.url }}" />
+        </div>
+    </div>
+</div>

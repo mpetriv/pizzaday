@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>HTML email test</title>
+    <link href="styles.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+
+<body itemscope itemtype="http://schema.org/EmailMessage">
+    <p>
+        Hello, {{eventCreator}}
+    </p>
+    <p>
+        You are <strong>PizzaDay {{eventDate}}</strong> event creator.
+    </p>
+    <p>
+        Below is order list by all participants:
+    </p>
+    <table>
+        <tr>
+            <td></td>
+            <td width="600">
+                <table width="100%" style="border: 1px solid #eee;">
+                    {{#each resultList}}
+                    <tr style="background-color: #b3e6ff">
+                        <td colspan=5><strong>Participant: </strong>{{userName}}</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Menu item</th>
+                        <th style="text-align: center; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Price</th>
+                        <th style="text-align: center; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Quantity</th>
+                        <th style="text-align: center; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Coupon</th>
+                        <th style="text-align: center; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Sum</th>
+                    </tr>
+                    {{#each items}}
+                    <tr>
+                        <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">{{name}}</td>
+                        <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">${{price}}</td>
+                        <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">{{quantity}}</td>
+                        <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">{{#if coupon}}<strong style="color: #2eb82e">20% off</strong>{{else}}-{{/if}}</td>
+                        <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">${{sum}}</td>
+                    </tr>
+                    {{/each}}
+                    <tr>
+                        <td colspan=4 style="text-align: right; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;"><strong> {{userName}}</strong> should pay:</td>
+                        <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; background-color: #ffddcc"><strong>Total:</strong> ${{totalSum}}</td>
+                    </tr>
+                    {{/each}}
+                    <tr style="background-color: #ff8080">
+                        <td colspan=5 style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;"><strong>Total by all users: </strong> ${{totalByAllUsers}}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <h3>Have a nice pizza day</h3>
+</body>
+
+</html>

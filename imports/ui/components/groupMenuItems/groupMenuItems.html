@@ -1,0 +1,61 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><span class="glyphicon glyphicon-list-alt"></span> Manage menu items</h4></div>
+    <div class="panel-body">
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label for="menu_item">Menu item:</label>
+                <input type="text" class="form-control" ng-model="groupMenuItems.menuItemName" id="menu_item" placeholder="Enter menu item">
+            </div>
+            <div class="form-group">
+                <label for="item_price">Price:</label>
+                <input type="number" class="form-control" ng-model="groupMenuItems.menuItemPrice" id="item_price" placeholder="Enter item's price">
+            </div>
+            <button ng-click="groupMenuItems.addMenuItem()" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add menu item</button>
+        </form>
+        <br/>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Menu item</th>
+                            <th>Price</th>
+                            <th>Coupon</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in groupMenuItems.group.menuItems">
+                            <td>
+                                <span ng-hide="editing">{{item.name}}</span>
+                                <input type="text" ng-model="ritem.name" ng-show="editing" ng-init="ritem.name=item.name">
+                            </td>
+                            <td>
+                                <span ng-hide="editing">{{item.price}}</span>
+                                <input type="number" ng-model="ritem.price" ng-show="editing" ng-init="ritem.price=item.price">
+                            </td>
+                            <td>
+                                <div ng-show="item.coupon">
+                                    <span class="badge">20% off</span><a href="#"><span ng-click="groupMenuItems.setCoupon(item.id, !item.coupon)" class="glyphicon glyphicon-remove"></span></a>
+                                </div>
+                                <button ng-hide="item.coupon" ng-click="groupMenuItems.setCoupon(item.id, !item.coupon)" type="button" class="btn btn-warning btn-xs">add <span class="glyphicon glyphicon-plus"></span></button>
+                            </td>
+                            <td>
+                                <button ng-hide="editing" class="btn btn-primary btn-xs" ng-click="editing=true"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                <button ng-show="editing" class="btn" ng-click="groupMenuItems.save(ritem,item); editing = false;">Save</button>
+                            </td>
+                            <td>
+                                <button ng-hide="editing" class="btn btn-danger btn-xs" ng-click="groupMenuItems.remove(item.id)"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+                                <button ng-show="editing" class="btn" ng-click="editing = false; ritem.name=item.name; ritem.price=item.price">Cancel</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>
